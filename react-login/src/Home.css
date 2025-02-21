@@ -1,0 +1,166 @@
+/* สไตล์หลักของหน้า Home */
+.home-container {
+  padding: 30px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f7fa; /* สีพื้นหลังอ่อนๆ เหมือน Getboards */
+  min-height: 100vh; /* ครอบคลุมทั้งหน้าจอ */
+}
+
+/* หัวข้อ */
+h1, h2, h3 {
+  color: #2c3e50; /* สีเข้มเหมือนหัวข้อใน Getboards */
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* รายการ Boards */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background-color: #ffffff; /* การ์ดสีขาวเหมือนใน Getboards */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* เงาอ่อนๆ */
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+li:hover {
+  transform: translateY(-3px); /* ลอยขึ้นเล็กน้อยเมื่อ hover */
+}
+
+/* ปุ่ม Invite และอื่นๆ */
+button {
+  background-color: #007bff; /* สีน้ำเงินเหมือนปุ่มใน Getboards */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+button:hover {
+  background-color: #0056b3; /* สีเข้มขึ้นเมื่อ hover */
+}
+
+/* ปุ่ม Accept และ Reject */
+button:nth-child(2) { /* Accept */
+  background-color: #28a745; /* สีเขียวเหมือนปุ่ม Edit ใน Getboards */
+}
+
+button:nth-child(2):hover {
+  background-color: #218838;
+}
+
+button:nth-child(3) { /* Reject/Delete */
+  background-color: #dc3545; /* สีแดงเหมือนปุ่ม Delete */
+}
+
+button:nth-child(3):hover {
+  background-color: #b02a37;
+}
+
+/* ฟอร์มเชิญ */
+.invite-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  background-color: #eef2f7; /* สีพื้นหลังอ่อนเหมือน column-item */
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.invite-form input {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+/* รายการคำเชิญ */
+.invite-item {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.invite-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* เงาเข้มขึ้นเมื่อ hover */
+}
+
+.invite-item p {
+  margin: 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Board ที่เข้าร่วม */
+.joined-board {
+  background-color: #eef2f7;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.joined-board p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* ข้อความแจ้งเตือนข้อผิดพลาด */
+.error-message {
+  color: #dc3545; /* สีแดงเหมือนใน Getboards */
+  font-weight: 500;
+  margin: 10px 0;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* ข้อความเมื่อไม่มีข้อมูล */
+p {
+  color: #777;
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .home-container {
+    padding: 15px;
+  }
+
+  li, .invite-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .invite-form {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}

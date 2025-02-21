@@ -1,0 +1,104 @@
+/* ตั้งค่าพื้นฐานสำหรับทั้งหมด */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* กำหนดพื้นหลังและการตั้งค่าพื้นฐาน */
+  body {
+    background-color: #f4f4f9;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.5;
+    padding: 20px;
+  }
+  
+  /* ตั้งค่าพื้นฐานให้กับทุก ๆ หน้า */
+  .app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* กำหนดขนาดและความยาวของลิงค์ */
+  .app-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 10px;
+  }
+  
+  .app-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* กำหนดสไตล์สำหรับปุ่ม */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* สไตล์สำหรับข้อความผิดพลาด */
+  .error-message {
+    color: red;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  /* สไตล์สำหรับข้อความสำเร็จ */
+  .success-message {
+    color: green;
+    text-align: center;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  /* สไตล์สำหรับฟอร์ม */
+  input[type="text"], 
+  input[type="email"], 
+  input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  input[type="text"]:focus, 
+  input[type="email"]:focus, 
+  input[type="password"]:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  /* สไตล์สำหรับคอนเทนเนอร์ของฟอร์ม */
+  .form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  

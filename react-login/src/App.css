@@ -1,0 +1,145 @@
+/* สไตล์หลักของหน้า */
+.app-container {
+  padding: 30px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f7fa; /* สีพื้นหลังอ่อนๆ เหมือน Getboards */
+  min-height: 100vh; /* ครอบคลุมทั้งหน้าจอ */
+}
+
+/* หัวข้อ Kanban App */
+.app-title {
+  color: #2c3e50; /* สีเข้มเหมือนหัวข้อใน Getboards */
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Container ของ Links */
+.link-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* ระยะห่างระหว่าง Links */
+  margin-bottom: 30px;
+  flex-wrap: wrap; /* รองรับการตัดลงบรรทัดใหม่ถ้าจอเล็ก */
+}
+
+/* สไตล์ Links */
+.link-container a {
+  text-decoration: none;
+  color: #007bff; /* สีน้ำเงินเหมือนปุ่มใน Getboards */
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.link-container a:hover {
+  background-color: #e2e8f0; /* สีพื้นหลังเมื่อ hover เหมือนใน Getboards */
+  color: #0056b3; /* สีเข้มขึ้น */
+}
+
+.link-container a.active {
+  background-color: #007bff; /* สีน้ำเงินเมื่อ active */
+  color: white;
+  font-weight: 600;
+}
+
+/* ปุ่ม Logout */
+.logout-button {
+  background-color: #dc3545; /* สีแดงเหมือนปุ่ม Delete ใน Getboards */
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #b02a37; /* สีเข้มขึ้นเมื่อ hover */
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .app-container {
+    padding: 15px;
+  }
+
+  .link-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .link-container a,
+  .logout-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+.notification-container {
+  position: relative;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-width: 400px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.notification-item {
+  background-color: #f9f9f9;
+  color: #333;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #ff4444;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #cc0000;
+}
+
+.close-modal-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.close-modal-button:hover {
+  background-color: #c82333;
+}
+.notification-button {
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.notification-button:hover {
+  background-color: #218838;
+}
+

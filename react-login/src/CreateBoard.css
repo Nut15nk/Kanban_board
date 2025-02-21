@@ -1,0 +1,103 @@
+/* สไตล์หลักของหน้า CreateBoard */
+.create-board-container {
+  padding: 30px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f7fa; /* สีพื้นหลังอ่อนเหมือน Getboards */
+  min-height: 100vh; /* ครอบคลุมทั้งหน้าจอ */
+  /* ลบการจัดกึ่งกลางแนวตั้งออก และจัดชิดซ้าย-ขวา */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* หัวข้อ */
+h2 {
+  color: #2c3e50; /* สีเข้มเหมือนหัวข้อใน Getboards */
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ฟอร์มสร้าง Board */
+form {
+  background-color: #ffffff; /* การ์ดสีขาวเหมือนใน Getboards */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* เงาอ่อนๆ */
+  width: 100%;
+  max-width: 400px; /* จำกัดความกว้างสูงสุด */
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* ระยะห่างระหว่าง input และ button */
+}
+
+/* Input */
+input[type="text"] {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box; /* รวม padding และ border ในความกว้าง */
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #007bff; /* สีน้ำเงินเมื่อ focus */
+  outline: none;
+}
+
+/* ปุ่ม Create Board */
+button {
+  background-color: #007bff; /* สีน้ำเงินเหมือนปุ่มใน Getboards */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3; /* สีเข้มขึ้นเมื่อ hover */
+}
+
+/* ข้อความแจ้งเตือนข้อผิดพลาด */
+.error-message {
+  color: #dc3545; /* สีแดงเหมือนใน Getboards */
+  font-weight: 500;
+  margin-top: 10px;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* ข้อความแจ้งเตือนความสำเร็จ */
+.success-message {
+  color: #28a745; /* สีเขียวเหมือนปุ่ม Accept/Edit */
+  font-weight: 500;
+  margin-top: 10px;
+  background-color: #d4edda;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .create-board-container {
+    padding: 15px;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  input[type="text"],
+  button {
+    font-size: 12px;
+    padding: 8px;
+  }
+}

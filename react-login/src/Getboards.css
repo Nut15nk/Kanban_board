@@ -1,0 +1,359 @@
+/* Getboards.css */
+/* สไตล์หลักของหน้า */
+.boards-container {
+  padding: 30px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-color: #f4f7fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* รายการ Boards */
+.board-list {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.board-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  transition: transform 0.2s ease;
+}
+
+.board-item:hover {
+  transform: translateY(-3px);
+}
+
+.board-item span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+}
+
+.board-item button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.board-item button:hover {
+  background-color: #0056b3;
+}
+
+.board-item button:nth-child(3) {
+  background-color: #dc3545;
+}
+
+.board-item button:nth-child(3):hover {
+  background-color: #b02a37;
+}
+
+/* หัวข้อ */
+h1, h2 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* ส่วนเนื้อหาของ Board */
+.board-content {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+  flex-grow: 1;
+}
+
+/* Containers สำหรับ Columns และ Tasks */
+.columns-container, .tasks-container {
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  height: fit-content;
+}
+
+.columns-container {
+  flex: 1;
+  max-width: 400px;
+}
+
+.tasks-container {
+  flex: 2;
+}
+
+/* Column Item */
+.column-item {
+  background-color: #eef2f7;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.column-item:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #34495e;
+  margin: 0;
+  cursor: pointer;
+}
+
+.column-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.column-actions button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.column-actions button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.column-actions button:hover {
+  background-color: #218838;
+}
+
+.column-actions button:nth-child(2):hover {
+  background-color: #b02a37;
+}
+
+/* ปุ่ม Add Task หรือ Add Column */
+.column-item button:not(.column-actions button) {
+  background-color: #17a2b8;
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+}
+
+.column-item button:not(.column-actions button):hover {
+  background-color: #138496;
+}
+
+/* Task Item */
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.task-item:hover {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.task-content {
+  flex-grow: 1;
+  margin-right: 15px; /* ระยะห่างจากปุ่ม */
+}
+
+.task-content p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.task-content p strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.task-content p em {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Task Actions */
+.task-actions {
+  display: flex;
+  flex-wrap: wrap; /* อนุญาตให้ปุ่มตกลงบรรทัดใหม่ถ้าพื้นที่ไม่พอ */
+  gap: 6px; /* ระยะห่างระหว่างปุ่ม */
+  align-items: center;
+}
+
+.task-actions button {
+  background-color: #ffc107;
+  color: #212529;
+  border: none;
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.task-actions button:nth-child(2) {
+  background-color: #dc3545;
+  color: white;
+}
+
+.task-actions button:nth-child(3) {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.task-actions button:nth-child(4),
+.task-actions button:nth-child(5) {
+  background-color: #6f42c1;
+  color: white;
+  padding: 6px 8px; /* ปรับขนาดปุ่มขึ้น/ลงให้เล็กลงเล็กน้อย */
+  min-width: 30px; /* กำหนดความกว้างขั้นต่ำ */
+}
+
+.task-actions button:hover {
+  background-color: #e0a800;
+}
+
+.task-actions button:nth-child(2):hover {
+  background-color: #b02a37;
+}
+
+.task-actions button:nth-child(3):hover {
+  background-color: #138496;
+}
+
+.task-actions button:nth-child(4):hover,
+.task-actions button:nth-child(5):hover {
+  background-color: #5a32a3;
+}
+
+.task-actions button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* ฟอร์มเพิ่ม Column หรือ Task */
+.add-column-form, .add-task-form {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 15px 0;
+}
+
+.add-column-form input, .add-task-form input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.add-task-form textarea {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 80px;
+  margin-bottom: 10px;
+}
+
+.add-column-form button, .add-task-form button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-column-form button:nth-child(2), .add-task-form button:nth-child(2) {
+  background-color: #6c757d;
+  margin-left: 10px;
+}
+
+.add-column-form button:hover, .add-task-form button:hover {
+  background-color: #0056b3;
+}
+
+.add-column-form button:nth-child(2):hover, .add-task-form button:nth-child(2):hover {
+  background-color: #5a6268;
+}
+
+/* ข้อความแจ้งเตือนข้อผิดพลาด */
+.error-message {
+  color: #dc3545;
+  font-weight: 500;
+  margin: 10px 0;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .board-content {
+    flex-direction: column;
+  }
+
+  .columns-container, .tasks-container {
+    max-width: 100%;
+  }
+
+  .board-item {
+    width: 100%;
+  }
+
+  .task-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .task-actions {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .task-actions button {
+    flex: 1;
+    min-width: 0; /* ป้องกันปุ่มขยายเกิน */
+  }
+}
