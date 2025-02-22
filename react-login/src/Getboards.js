@@ -404,7 +404,7 @@ const GetBoards = ({ token }) => {
       return;
     }
     axios
-      .delete(`http://localhost:3333/api/columns/${columnId}/tasks/${taskId}`, {
+      .delete(`http://localhost:3333/api/columns/${columnId}/tasks/${taskId}/delete`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then(() => {
@@ -596,7 +596,6 @@ const GetBoards = ({ token }) => {
             )}
           </div>
 
-          {/* Tasks Container (Right) */}
           <div className="tasks-container">
             <h2>Tasks {selectedColumnId && `- ${columns.find(col => col.id === selectedColumnId)?.name}`}</h2>
             {isAddTaskOpen && newTaskColumnId && (
