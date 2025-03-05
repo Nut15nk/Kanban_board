@@ -380,8 +380,6 @@ const createTask = (req, res) => {
             return res.status(500).json({ message: 'Database error', error: err });
         }
 
-        console.log("Database results:", results);  // เพิ่มการตรวจสอบผลจากฐานข้อมูล
-
         // ส่ง response กลับมาให้ผู้ใช้
         res.status(201).json({ message: 'Task created successfully', taskId: results.insertId });
     });
@@ -800,7 +798,6 @@ const getBoardMembers = (req, res) => {
         console.error("Database error:", err);
         return res.status(500).json({ message: "Database error", error: err });
       }
-      console.log("Fetched members:", results);
       res.status(200).json(results);
     });
   };
