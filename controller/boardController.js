@@ -105,23 +105,64 @@ const updateBoard = (req, res) => {
     });
 };
 
-
-
-
 // ฟังก์ชันในการลบ Board
-const deleteBoard = (req, res) => {
+const deleteBoard = async (req, res) => {
     const { boardId } = req.params;
+    const userId = req.user?.id;
 
-    const query = 'DELETE FROM boards WHERE id = ?';
-    connection.execute(query, [boardId], (err, results) => {
-        if (err) {
-            return res.status(500).json({ message: 'Database error', error: err });
+    if (!boardId || isNaN(boardId)) {
+        return res.status(400).json({ message: 'Invalid boardId' });
+    }
+    if (!userId) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        // ตรวจสอบว่าเป็นเจ้าของ Board
+        const queryCheckOwner = 'SELECT * FROM boards WHERE id = ? AND owner_id = ?';
+        const [ownerResults] = await connection.promise().execute(queryCheckOwner, [boardId, userId]);
+
+        if (ownerResults.length === 0) {
+            return res.status(403).json({ message: 'You are not the owner of this board' });
         }
-        if (results.affectedRows === 0) {
+
+        // ลบ Notifications ที่เกี่ยวข้องกับ Tasks ใน Board
+        const queryDeleteNotifications = `
+            DELETE FROM notifications WHERE task_id IN (
+                SELECT id FROM tasks WHERE column_id IN (SELECT id FROM columns WHERE board_id = ?)
+            )
+        `;
+        await connection.promise().execute(queryDeleteNotifications, [boardId]);
+
+        // ลบ Tasks ใน Columns ของ Board
+        const queryDeleteTasks = 'DELETE FROM tasks WHERE column_id IN (SELECT id FROM columns WHERE board_id = ?)';
+        await connection.promise().execute(queryDeleteTasks, [boardId]);
+
+        // ลบ Columns ของ Board
+        const queryDeleteColumns = 'DELETE FROM columns WHERE board_id = ?';
+        await connection.promise().execute(queryDeleteColumns, [boardId]);
+
+        // ลบ Board Members
+        const queryDeleteMembers = 'DELETE FROM board_members WHERE board_id = ?';
+        await connection.promise().execute(queryDeleteMembers, [boardId]);
+
+        // ลบ Invites ที่เกี่ยวข้อง
+        const queryDeleteInvites = 'DELETE FROM invites WHERE board_id = ?';
+        await connection.promise().execute(queryDeleteInvites, [boardId]);
+
+        // ลบ Board
+        const queryDeleteBoard = 'DELETE FROM boards WHERE id = ?';
+        const [result] = await connection.promise().execute(queryDeleteBoard, [boardId]);
+
+        if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Board not found' });
         }
-        res.status(200).json({ message: 'Board deleted successfully' });
-    });
+
+        res.status(200).json({ message: 'Board and all related data deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
 };
 
 // ฟังก์ชันในการสร้าง Column
@@ -210,19 +251,55 @@ const updateColumn = (req, res) => {
   
 
 // ฟังก์ชันในการอัปเดต Column
-const deleteColumn = (req, res) => {
+const deleteColumn = async (req, res) => {
     const { columnId } = req.params;
+    const userId = req.user?.id;
 
-    const query = 'DELETE FROM columns WHERE id = ?';
-    connection.execute(query, [columnId], (err, results) => {
-        if (err) {
-            return res.status(500).json({ message: 'Database error', error: err });
+    if (!columnId || isNaN(columnId)) {
+        return res.status(400).json({ message: 'Invalid columnId' });
+    }
+    if (!userId) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        // ตรวจสอบสิทธิ์
+        const queryCheckAccess = `
+            SELECT c.id
+            FROM columns c
+            JOIN boards b ON c.board_id = b.id
+            LEFT JOIN board_members bm ON b.id = bm.board_id AND bm.user_id = ?
+            WHERE c.id = ? AND (b.owner_id = ? OR bm.user_id = ?)
+        `;
+        const [accessResults] = await connection.promise().execute(queryCheckAccess, [userId, columnId, userId, userId]);
+
+        if (accessResults.length === 0) {
+            return res.status(403).json({ message: 'You do not have permission to delete this column' });
         }
-        if (results.affectedRows === 0) {
+
+        // ลบ Notifications ที่เกี่ยวข้องกับ Tasks ใน Column
+        const queryDeleteNotifications = `
+            DELETE FROM notifications WHERE task_id IN (SELECT id FROM tasks WHERE column_id = ?)
+        `;
+        await connection.promise().execute(queryDeleteNotifications, [columnId]);
+
+        // ลบ Tasks ใน Column
+        const queryDeleteTasks = 'DELETE FROM tasks WHERE column_id = ?';
+        await connection.promise().execute(queryDeleteTasks, [columnId]);
+
+        // ลบ Column
+        const queryDeleteColumn = 'DELETE FROM columns WHERE id = ?';
+        const [result] = await connection.promise().execute(queryDeleteColumn, [columnId]);
+
+        if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Column not found' });
         }
-        res.status(200).json({ message: 'Column deleted successfully' });
-    });
+
+        res.status(200).json({ message: 'Column and related data deleted successfully' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Database error', error: err.message });
+    }
 };
 
 const getColumns = (req, res) => {
@@ -396,7 +473,7 @@ const deleteTask = async (req, res) => {
     }
 
     try {
-        // ตรวจสอบสิทธิ์และความถูกต้องของ Task
+        // ตรวจสอบสิทธิ์
         const queryCheckAccess = `
             SELECT t.id
             FROM tasks t
@@ -411,15 +488,19 @@ const deleteTask = async (req, res) => {
             return res.status(403).json({ message: 'You do not have permission to delete this task or task not found' });
         }
 
+        // ลบการแจ้งเตือนที่เกี่ยวข้องกับ Task
+        const queryDeleteNotifications = 'DELETE FROM notifications WHERE task_id = ?';
+        await connection.promise().execute(queryDeleteNotifications, [taskId]);
+
         // ลบ Task
-        const query = 'DELETE FROM tasks WHERE id = ? AND column_id = ?';
-        const [result] = await connection.promise().execute(query, [taskId, columnId]);
+        const queryDeleteTask = 'DELETE FROM tasks WHERE id = ? AND column_id = ?';
+        const [result] = await connection.promise().execute(queryDeleteTask, [taskId, columnId]);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'Task not found' });
         }
 
-        res.status(200).json({ message: 'Task deleted successfully' });
+        res.status(200).json({ message: 'Task and related notifications deleted successfully' });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Database error', error: err.message });
